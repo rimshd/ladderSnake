@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Ladder & Snake</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Vue 3 Mini Game</p>
+          <h1>Ladder & Snake</h1>
+          <p class="subtitle">
+            Roll the dice, climb the ladders, and dodge the snakes.
+          </p>
+        </div>
+        <div class="controls">
+          <div class="stat">
+            <span>Turn</span>
+            <strong>{{ currentPlayer.name }}</strong>
+          </div>
+          <div class="stat">
+            <span>Last roll</span>
+            <strong>{{ lastRoll || '-' }}</strong>
+          </div>
+          <div class="actions">
+            <button @click="roll" :disabled="isRolling || winner">
+              {{ isRolling ? 'Rolling...' : 'Roll Dice' }}
+            </button>
+            <button class="ghost" @click="reset">Reset</button>
+          </div>
+          <p v-if="winner" class="winner">{{ winner.name }} wins 🎉</p>
+        </div>
+      </header>
+
+      <section class="board">
+        <div
+          v-for="cell in boardCells"
+          :key="cell.id"
+          class="cell"
+          :class="cellClass(cell.id)"
+        >
+          <span class="cell-number">{{ cell.id }}</span>
+          <span v-if="cell.label" class="cell-label">{{ cell.label }}</span>
+          <div class="tokens">
+            <span
+              v-for="player in players"
+              :key="player.id"
+              v-show="player.position === cell.id"
+              class="token"
+              :style="{ backgroundColor: player.color }"
+              :title="player.name"
+            ></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="legend">
+        <div>
+          <h2>Snakes</h2>
+          <ul>
+            <li v-for="snake in snakes" :key="snake.from">
+              {{ snake.from }} → {{ snake.to }}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Ladders</h2>
+          <ul>
+            <li v-for="ladder in ladders" :key="ladder.from">
+              {{ ladder.from }} → {{ ladder.to }}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>How to play</h2>
+          <ol>
+            <li>Roll the dice to move 1-6 spaces.</li>
+            <li>Land on ladders to climb higher.</li>
+            <li>Land on snakes to slide down.</li>
+            <li>Reach square 100 to win.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
