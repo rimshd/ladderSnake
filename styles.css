@@ -127,6 +127,23 @@ button.ghost {
   border: 1px solid #e5e7eb;
 }
 
+.cell-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  align-self: flex-start;
+  background-size: cover;
+  background-position: center;
+}
+
+.cell-icon.ladder {
+  background-image: url("assets/ladder.svg");
+}
+
+.cell-icon.snake {
+  background-image: url("assets/snake.svg");
+}
+
 .cell.ladder {
   border-color: #22c55e;
   background: #f0fdf4;
@@ -180,6 +197,18 @@ button.ghost {
   padding-left: 18px;
   color: #334155;
   font-size: 14px;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.legend-icon {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 720px) {
